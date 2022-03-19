@@ -1,0 +1,3 @@
+[submodule "src/raii.live-assets"]
+	path = src/assets
+	url = git@github.com:hi-raii/raii.live-assets.git

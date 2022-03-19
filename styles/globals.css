@@ -1,0 +1,10 @@
+@font-face {
+  font-family: 'Pixer';
+  src: url('../src/assets/font/Pixer-Regular.eot');
+  src: url('../src/assets/font/Pixer-Regular.woff2') format('woff2'),
+  url('../src/assets/font/Pixer-Regular.woff') format('woff'),
+  url('../src/assets/font/Pixer-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
