@@ -7,6 +7,10 @@ const nextConfig = {
   },
   images: {
     domains: ["dl.airtable.com"]
+  },
+  publicRuntimeConfig: {
+    facebookAppId: process.env.FACEBOOK_APP_ID,
+    googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID
   }
 }
 module.exports = nextConfig

@@ -9,7 +9,6 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import initialPngAnimation from "@animations/intial_png_animation.json"
 import AnimationItem from "../types/AnimationItem";
 import {motion} from "framer-motion"
-import {vh} from "style-value-types";
 import {useIsMobileViewport} from "@lib/utils/useIsMobile";
 import {IoBalloonOutline} from "react-icons/io5";
 import emojis from "@lib/emojis.json"
