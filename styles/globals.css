@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
 
 @font-face {
-  font-family: 'Pixer';
-  src: url('../src/assets/font/Pixer-Regular.eot');
-  src: url('../src/assets/font/Pixer-Regular.woff2') format('woff2'),
-  url('../src/assets/font/Pixer-Regular.woff') format('woff'),
-  url('../src/assets/font/Pixer-Regular.ttf') format('truetype');
+  font-family: "Pixer";
+  src: url("/fonts/Pixer-Regular.eot");
+  src: url("/fonts/Pixer-Regular.woff2") format('woff2'),
+  url("/fonts/Pixer-Regular.woff") format('woff'),
+  url("/fonts/Pixer-Regular.ttf") format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
