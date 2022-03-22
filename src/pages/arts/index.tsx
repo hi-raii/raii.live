@@ -1,6 +1,6 @@
 import React, {PropsWithChildren, useState} from 'react'
 import Airtable, {Attachment, FieldSet, Record} from "airtable";
-import {AttachmentDto} from "../../types/attachment-dto";
+import AttachmentDto from "../../types/AttachmentDto";
 import {mapAttachmentToDto} from "@lib/utils/attachment";
 import {
   Box,
@@ -14,9 +14,9 @@ import {
   Link as ChakraLink
 } from "@chakra-ui/react";
 import ReactMarkdown from 'react-markdown'
-import MotionBox from '@components/motion-box';
+import MotionBox from '@components/MotionBox';
 import NextImage, {ImageProps} from "next/image"
-import ChakraExternalLink from "@components/chakra-external-link";
+import ChakraExternalLink from "@components/ChakraExternalLink";
 import useViewPortHeight from "@lib/utils/useViewPortHeight";
 
 type Props = React.PropsWithChildren<{

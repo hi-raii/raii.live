@@ -19,7 +19,7 @@ import NextLink from "next/link";
 import {BsDiscord, BsGithub, BsInstagram, BsTwitch, BsTwitter} from "react-icons/bs";
 import {FormattedMessage} from "react-intl";
 import useViewPortHeight from "@lib/utils/useViewPortHeight";
-import MotionButton from "@components/motion-button";
+import MotionButton from "@components/MotionButton";
 import {useRouter} from "next/router";
 import {useIsMobileViewport} from "@lib/utils/useIsMobile";
 
@@ -50,7 +50,7 @@ export default function Layout({children}: Props): JSX.Element {
             )}
             <NextLink href={'/'}>
               <a>
-                <Text variant={'raii'} d={'inline'} fontSize={18} px={1}>Raii</Text>
+                <Text variant={'raii.pixer'} d={'inline'} fontSize={18} px={1}>Raii</Text>
               </a>
             </NextLink>
             <Spacer/>
@@ -129,7 +129,7 @@ function MenuButtons() {
       <Spacer/>
       <ChakraLink isExternal href={'https://discord.gg/faT2yTXnnX'} variant={'raii'}>
         <MotionButton size={'sm'} variant={'raii'} whileHover={{scale: 1.1}} leftIcon={<BsDiscord/>}>
-          Discord Server
+          <FormattedMessage id={"discord_server"} defaultMessage={"Discord Server"}/>
         </MotionButton>
       </ChakraLink>
     </>

@@ -1,5 +1,5 @@
 import { Thumbnail} from "airtable";
-export type AttachmentDto = {
+type AttachmentDto = {
   url: string
   type: string
   thumbnails?: {
@@ -8,3 +8,5 @@ export type AttachmentDto = {
     full: Thumbnail
   }
 }
+
+export default AttachmentDto

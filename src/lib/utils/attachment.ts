@@ -1,4 +1,4 @@
-import {AttachmentDto} from "../../types/attachment-dto";
+import AttachmentDto from "../../types/AttachmentDto";
 import {Attachment} from "airtable";
 
 export function mapAttachmentToDto(attachment: Attachment): AttachmentDto{

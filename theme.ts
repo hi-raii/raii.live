@@ -18,8 +18,11 @@ const theme = extendTheme({
   components: {
     Text: {
       variants:{
-        "raii":{
+        "raii.pixer":{
           fontFamily: "Pixer, sans-serif"
+        },
+        "raii.bungee": {
+          fontFamily: "Bungee, sans-serif"
         }
       }
     },

@@ -8,7 +8,7 @@ import {getTitleIntl} from "@lib/utils/getTitleIntl";
 import {getLocaleAppInitialProps, useLocale} from "@lib/locale";
 import App from "next/app";
 import React from "react";
-import Layout from "@components/layout";
+import Layout from "@components/Layout";
 
 function MyApp({Component, pageProps, messages}: AppProps & { messages: any }) {
   const locale = useLocale();
@@ -47,10 +47,15 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
 const messagesPerLocale: { [locale: string]: any } = {
   pt: {
-    'page_title': 'VTuber Raii'
+    'page_title': 'VTuber Raii',
+    "raiis_menu": "Menu do Raii",
+    "fan_arts_and_commissions": "Fanarts e comissões",
+    "buy_me_a_coffe": "Me compre um café",
+    "discord_server": "Servidor do Discord"
   },
   en: {
-    'page_title': 'Raii VTuber'
+    'page_title': 'Raii VTuber',
+    "discord_server": "Discord Server (portuguese)"
   }
 }
 

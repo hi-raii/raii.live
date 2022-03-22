@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
 @font-face {
   font-family: 'Pixer';
   src: url('../src/assets/font/Pixer-Regular.eot');
@@ -8,3 +10,5 @@
   font-style: normal;
   font-display: swap;
 }
+
+
