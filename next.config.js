@@ -6,7 +6,10 @@ const nextConfig = {
     defaultLocale: 'en-us',
   },
   images: {
-    domains: ["dl.airtable.com"]
+    domains: [
+        "dl.airtable.com",
+        "purecatamphetamine.github.io"
+    ]
   },
   publicRuntimeConfig: {
     facebookAppId: process.env.FACEBOOK_APP_ID,

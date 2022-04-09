@@ -1,4 +1,4 @@
-import {extendTheme} from "@chakra-ui/react";
+import {extendTheme, withDefaultColorScheme} from "@chakra-ui/react";
 
 const theme = extendTheme({
   fonts: {
@@ -13,7 +13,7 @@ const theme = extendTheme({
     "raii.purple": "#8c74d2",
     "raii.green": "#008864",
     "raii.lightgreen": "#00b989",
-    "raii.black": "#1b1c1e"
+    "raii.black": "#1b1c1e",
   },
   components: {
     Text: {
@@ -58,9 +58,13 @@ const theme = extendTheme({
           color: "raii.lightgreen",
         }
       }
-    }
+    },
   }
 })
 
+console.log(withDefaultColorScheme({
+  colorScheme: 'blue',
+  components: ['Alert', 'Table'],
+})({}))
 
 export default theme

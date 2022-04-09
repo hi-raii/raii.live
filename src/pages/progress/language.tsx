@@ -1,7 +1,6 @@
-import React, {PropsWithChildren, useState} from 'react'
-import Airtable, {Attachment, FieldSet, Record} from "airtable";
+import React, { PropsWithChildren, useState} from 'react'
+import Airtable, { FieldSet, Record} from "airtable";
 import AttachmentDto from "../../types/AttachmentDto";
-import {mapAttachmentToDto} from "@lib/utils/attachment";
 import {
   Box,
   BoxProps,
@@ -11,7 +10,7 @@ import {
   SimpleGrid,
   useBreakpointValue, useDisclosure,
   useToken,
-  Link as ChakraLink
+  Link as ChakraLink, HStack, Center,  Stack, Text
 } from "@chakra-ui/react";
 import ReactMarkdown from 'react-markdown'
 import MotionBox from '@components/MotionBox';
@@ -20,26 +19,68 @@ import ChakraExternalLink from "@components/ChakraExternalLink";
 import useViewPortHeight from "@lib/utils/useViewPortHeight";
 
 type Props = React.PropsWithChildren<{
-  arts: ArtItem[]
+  languages: LanguageItem[]
 }>
 
+const startOfUrl = "https://purecatamphetamine.github.io/country-flag-icons/3x2/";
 
-export default function Arts({arts}: Props): JSX.Element {
+export default function Progress({languages}: Props): JSX.Element {
+  // console.log(countries)
   return (
     <Box p={10}>
-      <SimpleGrid columns={[1, null, 2, 3]} spacing={10}>
-        {arts.map((art, idx) => (
-          <AnimatedCard
-            key={idx}
-            initialDelay={idx * 0.5}
-            pos={"relative"}
-            w={"100%"}
-            pb={"100%"}
-          >
-            <CardImage src={art.imageAttachment.url}/>
-            <CardButtonModal art={art}/>
-          </AnimatedCard>
-        ))}
+      <SimpleGrid columns={1} spacing={10}>
+        {languages.map((language, idx) => {
+          // @ts-ignore
+          return (
+            <AnimatedCard
+              key={idx}
+              initialDelay={idx * 0.5}
+            >
+              <Center key={idx} position={"relative"}>
+                <Box width={"300px"} height={"200px"}>
+                  <Box
+                    position={"absolute"}
+                    borderRadius={12}
+                    overflow={"hidden"}
+                    width={"300px"}
+                    height={"200px"}
+                  >
+                    <NextImage
+                      width={300}
+                      height={200}
+                      src={startOfUrl + language.countryCode + ".svg"}
+                    />
+                  </Box>
+                  <Box
+                    maxW={"100%"}
+                    position={"absolute"}
+                    borderRadius={12}
+                    overflow={"hidden"}
+                    bg={"rgba(0,0,0,0.5)"}
+                  >
+                    <Box w={300} h={200}/>
+                  </Box>
+                  <Center
+                    color={"white"}
+                    position={"relative"}
+                    height={"200px"}
+                    fontSize={30}
+                    fontWeight={700}
+                  >
+                    <Stack justifyContent={"center"} >
+                      <Text>
+                        {language.name}
+                      </Text>
+                      {/*<Center>*/}
+                      {/*  <Box w={10} h={10} bg={"red"} borderRadius={"full"}/>*/}
+                      {/*</Center>*/}
+                    </Stack>
+                  </Center>
+                </Box>
+              </Center>
+            </AnimatedCard>
+          )
+        })}
       </SimpleGrid>
     </Box>
   );
@@ -48,13 +89,15 @@ export default function Arts({arts}: Props): JSX.Element {
 export async function getStaticProps() {
   Airtable.configure({apiKey: process.env.AIRTABLE_API_KEY})
   const base = Airtable.base(process.env.AIRTABLE_BASE_ID!)
-  const table = base.table("fan_arts&commisions");
-  const result = await table.select().all()
-  const arts = result.map(mapItemRecordToArtItem)
+  const table = base.table("language_progress");
+  const result = await table.select({sort: [{field: "Order", direction: "asc"}]}).all()
+  console.log(result)
+  const languages = result.map(mapItemRecordToLanguageItem).filter(x => x)
 
+  console.log(languages)
   return {
     props: {
-      arts
+      languages
     },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
@@ -62,20 +105,26 @@ export async function getStaticProps() {
   }
 }
 
-type ArtItem = {
+type LanguageItem = {
   linkUrl: string | null
   imageAttachment: AttachmentDto
   description: string | null
-  date: string | null
+  date: string | null,
+  countryCode: string
 }
 
-function mapItemRecordToArtItem({fields}: Record<FieldSet>): ArtItem {
-  const attachments = fields["Image"] as Attachment[];
+function mapItemRecordToLanguageItem({fields}: Record<FieldSet>): any {
+  if (fields["PAUSED"]) {
+    return null
+  }
+  const progress = Number(fields["Progress"]);
+  const redPercent = 1 - progress
+  const colorProgress = `rgb(${redPercent},${0},${redPercent})`
   return {
-    linkUrl: fields["Link"] ? fields["Link"] as string : null,
-    imageAttachment: mapAttachmentToDto(attachments[0]),
-    description: fields["Description"] as string || null,
-    date: fields["Date"] ? fields["Date"] as string : null
+    name: fields["Name"],
+    countryCode: fields["CountryCode"],
+    colorProgress: fields["Progress"],
+    beginDate: fields["BeginDate"] || null,
   }
 }
 
@@ -109,7 +158,7 @@ function AnimatedCard({children, initialDelay, ...props}: PropsWithChildren<{ in
   )
 }
 
-function CardButtonModal({art: {linkUrl, description, imageAttachment: {url: imageUrl}}}: { art: ArtItem }) {
+function CardButtonModal({art: {linkUrl, description, imageAttachment: {url: imageUrl}}}: { art: LanguageItem }) {
   const {isOpen, onOpen, onClose} = useDisclosure()
   const vh = useViewPortHeight();
   const [radiiMd] = useToken(
@@ -169,7 +218,7 @@ function CardButtonModal({art: {linkUrl, description, imageAttachment: {url: ima
             <ChakraLink isExternal href={linkUrl} variant={"reset"}>
               <CardImage src={imageUrl} objectFit={"contain"} sizes={"100vw"}/>
             </ChakraLink>
-          ): (
+          ) : (
             <CardImage src={imageUrl} objectFit={"contain"} sizes={"100vw"}/>
           )}
           <ModalCloseButton/>

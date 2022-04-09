@@ -83,7 +83,10 @@ const messagesPerLocale: { [locale: string]: any } = {
     "raiis_menu": "Menu do Raii",
     "fan_arts_and_commissions": "Fanarts e comissões",
     "buy_me_a_coffe": "Me compre um café",
-    "discord_server": "Servidor do Discord"
+    "discord_server": "Servidor do Discord",
+    "quests": "Missões",
+    "finish_college": "Concluir a faculdade",
+    "languages": "Idiomas"
   },
   en: {
     'page_title': 'Raii VTuber',

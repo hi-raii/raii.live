@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
   Box,
   Drawer, DrawerBody,
@@ -10,9 +10,8 @@ import {
   IconButton,
   Spacer,
   Text,
-  useBreakpointValue,
   useDisclosure,
-  Link as ChakraLink
+  Link as ChakraLink, MenuList, MenuItem, Menu, Button, MenuButton
 } from "@chakra-ui/react";
 import {HiMenu} from "react-icons/hi";
 import NextLink from "next/link";
@@ -22,6 +21,8 @@ import useViewPortHeight from "@lib/utils/useViewPortHeight";
 import MotionButton from "@components/MotionButton";
 import {useRouter} from "next/router";
 import {useIsMobileViewport} from "@lib/utils/useIsMobile";
+import {RiFilePaper2Fill} from "react-icons/ri";
+import {BiChevronDown} from "react-icons/bi";
 
 type Props = React.PropsWithChildren<{}>
 
@@ -31,15 +32,14 @@ export default function Layout({children}: Props): JSX.Element {
   const isMobileViewport = useIsMobileViewport()
   const router = useRouter()
 
-  function routeChangeStart(){
-    console.log("sd")
+  function routeChangeStart() {
     onClose();
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     router.events.on("routeChangeStart", routeChangeStart)
-    return ()=>router.events.off("routeChangeStart", routeChangeStart)
-  },[])
+    return () => router.events.off("routeChangeStart", routeChangeStart)
+  }, [])
   return (
     <>
       <Box h={vh(100)} bg={'raii.black'} overflowY={"hidden"}>
@@ -127,11 +127,49 @@ function MenuButtons() {
         </MotionButton>
       </ChakraLink>
       <Spacer/>
+      <QuestsButton/>
+      <Spacer/>
       <ChakraLink isExternal href={'https://discord.gg/faT2yTXnnX'} variant={'raii'}>
         <MotionButton size={'sm'} variant={'raii'} whileHover={{scale: 1.1}} leftIcon={<BsDiscord/>}>
           <FormattedMessage id={"discord_server"} defaultMessage={"Discord Server"}/>
         </MotionButton>
       </ChakraLink>
     </>
+  )
+}
+
+function QuestsButton(){
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <Menu onOpen={()=>setIsOpen(true)} onClose={()=>setIsOpen(false)}>
+      <MenuButton
+        as={MotionButton}
+        leftIcon={<RiFilePaper2Fill/>}
+        rightIcon={<BiChevronDown/>}
+        size={'sm'}
+        variant={'raii'}
+        whileHover={{scale:isOpen?1: 1.1}}
+      >
+        <FormattedMessage id={"quests"} defaultMessage={"Quests"}/>
+      </MenuButton>
+      <MenuList bg={"raii.black"}>
+        <MenuItem isDisabled>
+          <HStack w={"100%"}>
+            <FormattedMessage id={"finish_college"} defaultMessage={"Finish College"}/>
+            <Spacer/>
+            <Text>
+              99.9%
+            </Text>
+          </HStack>
+        </MenuItem>
+        <NextLink href={'/progress/language'}>
+          <a>
+            <MenuItem _hover={{backgroundColor: "raii.green"}}>
+              <FormattedMessage id={"languages"} defaultMessage={"Languages"}/>
+            </MenuItem>
+          </a>
+        </NextLink>
+      </MenuList>
+    </Menu>
   )
 }
